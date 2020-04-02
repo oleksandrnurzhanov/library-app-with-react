@@ -18,7 +18,6 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 * [Cypress](https://www.cypress.io/)
 * [CSS Modules](https://create-react-app.dev/docs/adding-a-css-modules-stylesheet/)
 * [CSS Grid](https://css-tricks.com/snippets/css/complete-guide-grid/)
-* [Ducks structure](https://www.freecodecamp.org/news/scaling-your-redux-app-with-ducks-6115955638be/)
 * [JSON Server](https://www.npmjs.com/package/json-server)
 
 ## Prerequisites

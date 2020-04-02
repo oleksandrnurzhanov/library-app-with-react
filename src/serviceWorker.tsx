@@ -94,7 +94,7 @@ function registerValidSW(swUrl: string, config: any) {
             };
         })
         .catch(error => {
-            console.error('Error during service worker registration:', error);
+            console.error('Error during service worker Registration:', error);
         });
 }
 
