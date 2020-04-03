@@ -1,8 +1,24 @@
 import React from 'react';
+import styles from './Footer.module.scss';
+
+import Container from '@material-ui/core/Container';
+import Typography from '@material-ui/core/Typography';
+import Link from '@material-ui/core/Link';
 
 function Footer() {
     return (
-        <div>Footer</div>
+        <footer className={styles.Footer}>
+            <Container maxWidth="md">
+                <Typography variant="body2" align="center">
+                    {'Copyright © '}
+                    <Link color="inherit" href="https://material-ui.com/">
+                        Library App
+                    </Link>{' '}
+                    {new Date().getFullYear()}
+                    {'.'}
+                </Typography>
+            </Container>
+        </footer>
     )
 }
 

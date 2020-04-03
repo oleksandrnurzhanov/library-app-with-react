@@ -1,0 +1,31 @@
+.Nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    color: #777;
+
+    &Wrapper {
+        background-color: #f8f8f8;
+    }
+
+    &LogoLink {
+        text-decoration: none;
+
+        > h1 {
+            margin: 0;
+        }
+    }
+
+    &Links {
+        display: flex;
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    &Link {
+        padding: 15px;
+        text-decoration: none;
+    }
+}

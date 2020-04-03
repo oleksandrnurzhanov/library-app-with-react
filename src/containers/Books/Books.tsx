@@ -1,9 +1,9 @@
 import React from 'react';
 
-function Books() {
+const Books = () => {
     return (
         <div>Books</div>
     )
-}
+};
 
 export default Books;
