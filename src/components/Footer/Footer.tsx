@@ -5,7 +5,9 @@ import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
 
-function Footer() {
+const Footer = (props: any) => {
+    if (!props.isAuthenticated) return null;
+
     return (
         <footer className={styles.Footer}>
             <Container maxWidth="md">
@@ -20,6 +22,6 @@ function Footer() {
             </Container>
         </footer>
     )
-}
+};
 
 export default Footer;

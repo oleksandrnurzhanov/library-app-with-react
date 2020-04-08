@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const SignIn = () => {
+const SignIn = (props: any) => {
     const classes = useStyles();
 
     return (
@@ -78,6 +78,7 @@ const SignIn = () => {
                         variant="contained"
                         color="primary"
                         className={classes.submit}
+                        onClick={props.auth}
                     >
                         Sign In
                     </Button>

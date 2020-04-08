@@ -5,7 +5,9 @@ import Container from '@material-ui/core/Container';
 
 import { Link } from 'react-router-dom';
 
-const Nav = () => {
+const Nav = (props: any) => {
+    if (!props.isAuthenticated) return null;
+
     return (
         <div className={styles.NavWrapper}>
             <Container maxWidth="md">
