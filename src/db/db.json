@@ -1,24 +1,20 @@
 {
-  "posts": [
-    {
-      "id": 1,
-      "title": "json-server",
-      "author": "typicode"
-    },
-    {
-      "id": 2,
-      "title": "some-server",
-      "author": "someauthor"
-    }
-  ],
-  "comments": [
-    {
-      "id": 1,
-      "body": "some comment",
-      "postId": 1
-    }
-  ],
-  "profile": {
-    "name": "typicode"
-  }
+    "users": [
+        {
+            "id": "fvrwxf3wp1",
+            "type": "ADMIN_USER",
+            "firstName": "Harry",
+            "lastName": "Potter",
+            "email": "hpotter@gmail.com",
+            "password": "qwerty"
+        },
+        {
+            "id": "fvrwxf3wp2",
+            "type": "OTHER_USER",
+            "firstName": "Arthur",
+            "lastName": "Carry",
+            "email": "acurry@gmail.com",
+            "password": "qwerty"
+        }
+    ]
 }

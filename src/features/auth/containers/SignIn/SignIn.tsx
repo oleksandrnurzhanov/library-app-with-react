@@ -1,4 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from "react-redux";
+import {
+    Link,
+    useHistory,
+    useLocation
+} from 'react-router-dom';
 import Avatar from '@material-ui/core/Avatar';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
@@ -8,10 +14,10 @@ import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-
-import { Link } from 'react-router-dom';
-
 import { makeStyles } from '@material-ui/core/styles';
+import { signIn, rememberUser } from "../../authSlice";
+import { ROUTER_URLS } from "../../../../Routes";
+import { selectAuthorizedStatus } from "../../authSelectors";
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -33,8 +39,26 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const SignIn = (props: any) => {
+const SignIn = () => {
+    let history = useHistory();
+    let location = useLocation();
+    let { from }: any = location.state || { from: { pathname: ROUTER_URLS.HOME } };
+
     const classes = useStyles();
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [remember, setRemember] = useState(false);
+    const dispatch = useDispatch();
+    const isAuthorized = useSelector(selectAuthorizedStatus);
+
+    let logIn = () => {
+        if (remember) {
+            dispatch(rememberUser(remember));
+        }
+
+        dispatch(signIn({ email, password }));
+        history.replace(from);
+    };
 
     return (
         <Container maxWidth="xs">
@@ -45,7 +69,7 @@ const SignIn = (props: any) => {
                 <Typography component="h1" variant="h5">
                     Sign in
                 </Typography>
-                <form className={classes.form} noValidate>
+                <form className={classes.form} noValidate onSubmit={e => { e.preventDefault(); }}>
                     <TextField
                         variant="outlined"
                         margin="normal"
@@ -56,6 +80,7 @@ const SignIn = (props: any) => {
                         name="email"
                         autoComplete="email"
                         autoFocus
+                        onChange={e => setEmail(e.target.value)}
                     />
                     <TextField
                         variant="outlined"
@@ -67,9 +92,10 @@ const SignIn = (props: any) => {
                         type="password"
                         id="password"
                         autoComplete="current-password"
+                        onChange={e => setPassword(e.target.value)}
                     />
                     <FormControlLabel
-                        control={<Checkbox value="remember" color="primary" />}
+                        control={<Checkbox color="primary" value={remember} onChange={e => setRemember(!remember)} />}
                         label="Remember me"
                     />
                     <Button
@@ -78,7 +104,7 @@ const SignIn = (props: any) => {
                         variant="contained"
                         color="primary"
                         className={classes.submit}
-                        onClick={props.auth}
+                        onClick={logIn}
                     >
                         Sign In
                     </Button>
