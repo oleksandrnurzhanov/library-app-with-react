@@ -40,6 +40,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const SignIn = () => {
+    // Let's use consistent let/const
+
     let history = useHistory();
     let location = useLocation();
     let { from }: any = location.state || { from: { pathname: ROUTER_URLS.HOME } };
@@ -52,11 +54,13 @@ const SignIn = () => {
     const isAuthorized = useSelector(selectAuthorizedStatus);
 
     let logIn = () => {
+        // I think we should add remember as a third parameter to signIn, aside email and password
         if (remember) {
             dispatch(rememberUser(remember));
         }
 
         dispatch(signIn({ email, password }));
+        // This location change should be performed from saga or in our case - a reducer, after state is updated
         history.replace(from);
     };
 
@@ -69,6 +73,7 @@ const SignIn = () => {
                 <Typography component="h1" variant="h5">
                     Sign in
                 </Typography>
+                {/* I'm not sure if it's a good practice to omit the `submit` functionality here and use pure onClick, maybe there can be some a18y issues. But overall it's not a subject of our discussion here, just thinking out loud */}
                 <form className={classes.form} noValidate onSubmit={e => { e.preventDefault(); }}>
                     <TextField
                         variant="outlined"

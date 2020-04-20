@@ -8,7 +8,7 @@ export const slice = createSlice({
     reducers: {
         increment: state => {
             // Redux Toolkit allows us to write "mutating" logic in reducers. It
-            // doesn't actually mutate the state because it uses the immer library,
+            // doesn't actually mutate the state because it uses the immer library, EDIT: Immer is also a really cool thing to have a look at.
             // which detects changes to a "draft state" and produces a brand new
             // immutable state based off those changes
             state.value += 1;
@@ -30,6 +30,7 @@ export const {increment, decrement, incrementByAmount} = slice.actions;
 // code can then be executed and other actions can be dispatched
 export const incrementAsync = (amount: number) => (dispatch: any) => {
     setTimeout(() => {
+        // Here is similar approach to one I've written about in authSlice.tsx
         dispatch(incrementByAmount(amount));
     }, 1000);
 };

@@ -1,0 +1,6 @@
+// 20.04
+- App component should be in a folder named App. features/app
+- Features should be named using PascalCase
+- Think about auth folders, containers should be renamed to components there
+- Create an `assets` folder and move `logo.svg` there
+

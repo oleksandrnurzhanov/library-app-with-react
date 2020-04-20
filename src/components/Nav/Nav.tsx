@@ -30,6 +30,7 @@ const Nav = () => {
                         </h1>
                     </Link>
                     <ul className={styles.NavLinks}>
+                        {/* I would add something like 'navLinkTitle' to each route we need here in the config and render it using Array.map */}
                         <Link className={styles.NavLink} to={ROUTER_URLS.CATEGORIES}>
                             <li>Categories</li>
                         </Link>

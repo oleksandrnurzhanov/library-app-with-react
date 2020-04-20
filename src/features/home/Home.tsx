@@ -8,6 +8,7 @@ const Home = () => {
     const history = useHistory();
     const isAuthorized = useSelector(selectAuthorizedStatus);
 
+    // Why do we need this check here if Home component is in `PrivateRoute` anyway?
     if (!isAuthorized) {
         history.push(ROUTER_URLS.SIGN_IN);
         return null;
