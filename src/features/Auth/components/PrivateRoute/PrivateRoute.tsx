@@ -1,10 +1,10 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
-import { ROUTER_URLS } from "../../../../Routes";
+import { ROUTER_URLS } from "../../../../routes";
 import { useSelector } from "react-redux";
-import { selectAuthorizedStatus } from "../../authSelectors";
+import { selectAuthorizedStatus } from "../../AuthSelectors";
 
-export const PrivateRoute = ({ children, ...rest }: any) => {
+const PrivateRoute = ({ children, ...rest }: any) => {
     const isAuthorized = useSelector(selectAuthorizedStatus);
 
     return (
@@ -25,3 +25,5 @@ export const PrivateRoute = ({ children, ...rest }: any) => {
         />
     );
 }
+
+export default PrivateRoute;

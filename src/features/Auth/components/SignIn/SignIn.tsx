@@ -15,9 +15,11 @@ import Button from '@material-ui/core/Button';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import { makeStyles } from '@material-ui/core/styles';
-import { signIn, rememberUser } from "../../authSlice";
-import { ROUTER_URLS } from "../../../../Routes";
-import { selectAuthorizedStatus } from "../../authSelectors";
+import { signIn, rememberUser } from "../../AuthSlice";
+import { ROUTER_URLS } from "../../../../routes";
+import { selectAuthorizedStatus } from "../../AuthSelectors";
+
+// to verify
 
 const useStyles = makeStyles((theme) => ({
     paper: {

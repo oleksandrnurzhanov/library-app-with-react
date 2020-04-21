@@ -1,4 +1,4 @@
-import { UserTypes } from "./authEnums";
+import { UserTypes } from "./AuthEnums";
 
 export interface User {
     id?: string,

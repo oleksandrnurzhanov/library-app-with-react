@@ -1,6 +1,12 @@
 // 20.04
-- App component should be in a folder named App. features/app
-- Features should be named using PascalCase
-- Think about auth folders, containers should be renamed to components there
-- Create an `assets` folder and move `logo.svg` there
+- App component should be in a folder named App. features/app - done
+- Features should be named using PascalCase - done
+- Think about auth folders, containers should be renamed to components there - done
+- Create an `assets` folder and move `logo.svg` there - done
+
+should be clarified:
+- why containers should be renamed to components in auth folder?
+- what the purpose of yarn.lock?
+
+
 

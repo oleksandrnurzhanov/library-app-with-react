@@ -30,14 +30,14 @@ export const {increment, decrement, incrementByAmount} = slice.actions;
 // code can then be executed and other actions can be dispatched
 export const incrementAsync = (amount: number) => (dispatch: any) => {
     setTimeout(() => {
-        // Here is similar approach to one I've written about in authSlice.tsx
+        // Here is similar approach to one I've written about in AuthSlice.tsx
         dispatch(incrementByAmount(amount));
     }, 1000);
 };
 
 // The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of
-// in the slice file. For example: `useSelector((state) => state.counter.value)`
+// in the slice file. For example: `useSelector((state) => state.Counter.value)`
 export const selectCount = (state: any) => state.counter.value;
 
 export default slice.reducer;
