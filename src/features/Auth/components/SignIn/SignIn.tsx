@@ -1,10 +1,6 @@
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from "react-redux";
-import {
-    Link,
-    useHistory,
-    useLocation
-} from 'react-router-dom';
+import { useDispatch } from "react-redux";
+import { Link } from 'react-router-dom';
 import Avatar from '@material-ui/core/Avatar';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
@@ -15,11 +11,7 @@ import Button from '@material-ui/core/Button';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import { makeStyles } from '@material-ui/core/styles';
-import { signIn, rememberUser } from "../../AuthSlice";
-import { ROUTER_URLS } from "../../../../routes";
-import { selectAuthorizedStatus } from "../../AuthSelectors";
-
-// to verify
+import { signIn } from "../../AuthSlice";
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -33,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: theme.palette.secondary.main,
     },
     form: {
-        width: '100%', // Fix IE 11 issue.
+        width: '100%',
         marginTop: theme.spacing(1),
     },
     submit: {
@@ -42,28 +34,17 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const SignIn = () => {
-    // Let's use consistent let/const
-
-    let history = useHistory();
-    let location = useLocation();
-    let { from }: any = location.state || { from: { pathname: ROUTER_URLS.HOME } };
-
+    // Let's use consistent let/const - done
     const classes = useStyles();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [remember, setRemember] = useState(false);
     const dispatch = useDispatch();
-    const isAuthorized = useSelector(selectAuthorizedStatus);
 
     let logIn = () => {
-        // I think we should add remember as a third parameter to signIn, aside email and password
-        if (remember) {
-            dispatch(rememberUser(remember));
-        }
-
-        dispatch(signIn({ email, password }));
-        // This location change should be performed from saga or in our case - a reducer, after state is updated
-        history.replace(from);
+        // I think we should add remember as a third parameter to signIn, aside email and password - done
+        dispatch(signIn({ email, password, remember }));
+        // This location change should be performed from saga or in our case - a reducer, after state is updated - done
     };
 
     return (
@@ -75,7 +56,9 @@ const SignIn = () => {
                 <Typography component="h1" variant="h5">
                     Sign in
                 </Typography>
-                {/* I'm not sure if it's a good practice to omit the `submit` functionality here and use pure onClick, maybe there can be some a18y issues. But overall it's not a subject of our discussion here, just thinking out loud */}
+                {/* I'm not sure if it's a good practice to omit the `submit` functionality here and use pure onClick,
+                maybe there can be some a18y issues. But overall it's not a subject of our discussion here,
+                just thinking out loud - should be clarified */}
                 <form className={classes.form} noValidate onSubmit={e => { e.preventDefault(); }}>
                     <TextField
                         variant="outlined"

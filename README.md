@@ -17,6 +17,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 * [Jest](https://create-react-app.dev/docs/running-tests/)
 * [Cypress](https://www.cypress.io/)
 * [CSS Modules](https://create-react-app.dev/docs/adding-a-css-modules-stylesheet/)
+* [CSS-in-JS](https://en.wikipedia.org/wiki/CSS-in-JS)
 * [CSS Grid](https://css-tricks.com/snippets/css/complete-guide-grid/)
 * [JSON Server](https://www.npmjs.com/package/json-server)
 
