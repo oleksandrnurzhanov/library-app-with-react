@@ -11,7 +11,10 @@ import Button from '@material-ui/core/Button';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import { makeStyles } from '@material-ui/core/styles';
-import { signIn } from "../../AuthSlice";
+import { signIn, fetchUserByEmail } from "../../AuthSlice";
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import * as Yup from "yup";
+import { AuthRequest } from "../../AuthInterfaces";
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -34,21 +37,69 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const SignIn = () => {
-    // Let's use consistent let/const - done
     const classes = useStyles();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [remember, setRemember] = useState(false);
     const dispatch = useDispatch();
 
-    let logIn = () => {
-        // I think we should add remember as a third parameter to signIn, aside email and password - done
-        dispatch(signIn({ email, password, remember }));
-        // This location change should be performed from saga or in our case - a reducer, after state is updated - done
+    const initialFormState: AuthRequest = {
+        email: '',
+        password: '',
+        rememberUser: false
     };
+
+    const submitForm = ((values: AuthRequest, setSubmitting: any ) => {
+        dispatch(signIn(values));
+        console.log('Alohomora!');
+        console.log('values', values);
+        console.log('setSubmitting', setSubmitting);
+        setTimeout(() => {
+            alert(JSON.stringify(values, null, 2));
+            // dispatch(signIn(values));
+            dispatch(fetchUserByEmail(values))
+            setSubmitting(false);
+        }, 400);
+    });
+
+    const Schema = Yup.object().shape({
+        email: Yup
+            .string()
+            .required('Please enter your email address')
+            .matches(
+                /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+                "Email is not valid"
+            ),
+        password: Yup
+            .string()
+            .required('Please enter your password')
+            .matches(
+                /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
+                "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character"
+            )
+    })
 
     return (
         <Container maxWidth="xs">
+            <Formik
+                initialValues={initialFormState}
+                validationSchema={Schema}
+                onSubmit={(values, { setSubmitting }) => submitForm(values, setSubmitting)}>
+                {({ isSubmitting }) => (
+                    <Form>
+                        <Field type="email" name="email" />
+                        <ErrorMessage name="email" component="div" />
+                        <Field type="password" name="password" />
+                        <ErrorMessage name="password" component="div" />
+                        <label htmlFor="rememberUser">
+                            <Field type="checkbox" name="rememberUser" />Remember me
+                        </label>
+                        <button type="submit" disabled={isSubmitting}>
+                            Submit
+                        </button>
+                    </Form>
+                )}
+            </Formik>
             <div className={classes.paper}>
                 <Avatar className={classes.avatar}>
                     <LockOutlinedIcon />
@@ -88,16 +139,16 @@ const SignIn = () => {
                         control={<Checkbox color="primary" value={remember} onChange={e => setRemember(!remember)} />}
                         label="Remember me"
                     />
-                    <Button
-                        type="submit"
-                        fullWidth
-                        variant="contained"
-                        color="primary"
-                        className={classes.submit}
-                        onClick={logIn}
-                    >
-                        Sign In
-                    </Button>
+                    {/*<Button*/}
+                    {/*    type="submit"*/}
+                    {/*    fullWidth*/}
+                    {/*    variant="contained"*/}
+                    {/*    color="primary"*/}
+                    {/*    className={classes.submit}*/}
+                    {/*    onClick={submitForm}*/}
+                    {/*>*/}
+                    {/*    Sign In*/}
+                    {/*</Button>*/}
                     <Grid container>
                         <Grid item xs>
                             <Link to="/forgot">

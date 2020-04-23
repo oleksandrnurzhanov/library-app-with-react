@@ -12,9 +12,10 @@ export interface User {
 export interface AuthRequest {
     email: string;
     password: string;
+    rememberUser: boolean;
 }
 
 export interface AuthState {
     isAuthorized: boolean,
-    isUserRemembered: boolean
+    rememberUser: boolean
 }
