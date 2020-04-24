@@ -4,9 +4,10 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## This app includes using:
 
+* [React 16.13.1](https://reactjs.org/)
 * [Redux](https://github.com/reduxjs/react-redux)
+* [Redux Toolkit](https://redux-toolkit.js.org/)
 * [React Router](https://reacttraining.com/react-router/web/guides/quick-start)
-* [Redux Saga](https://redux-saga.js.org/)
 * [React Hooks](https://reactjs.org/docs/hooks-reference.html)
 * [Reselect](https://github.com/reduxjs/reselect)
 * [Material UI](https://github.com/mui-org/material-ui)
@@ -20,6 +21,8 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 * [CSS-in-JS](https://en.wikipedia.org/wiki/CSS-in-JS)
 * [CSS Grid](https://css-tricks.com/snippets/css/complete-guide-grid/)
 * [JSON Server](https://www.npmjs.com/package/json-server)
+* [React Developer Tools](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=en)
+* [Redux DevTools](https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd?hl=en)
 
 ## Prerequisites
 
