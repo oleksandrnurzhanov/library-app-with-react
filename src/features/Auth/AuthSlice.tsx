@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { AuthRequest, AuthState } from "./AuthInterfaces";
 import axios from 'axios';
-import { useDispatch } from "react-redux";
+import { AuthAPi } from "./AuthAPI";
 
 // Just for clarification
 // When we will have an API, we will dispatch `signIn` action which will be caught by our saga-middleware and then the saga run will be triggered.
@@ -11,26 +11,11 @@ import { useDispatch } from "react-redux";
 
 // const history = useHistory();
 // const location = useLocation();
-const dispatch = useDispatch();
+// const dispatch = useDispatch();
 
 export const fetchUserByEmail = createAsyncThunk(
     'auth/fetchUserByEmailStatus',
-    async (values: AuthRequest, thunkAPI) => {
-        let data: any = [];
-        return axios.get(`http://localhost:3001/users`)
-            .then(resp => {
-                data = resp.data;
-                data.forEach((user: any) => {
-                    console.log(`Email ${user.email}`);
-                    console.log(`Email ${user.password}`);
-                    return data;
-                });
-                dispatch(signIn(values))
-            })
-            .catch((error: any) => {
-                console.log(error);
-            });
-    }
+    async (values: AuthRequest, thunkAPI) => await AuthAPi.fetchUserByEmail(values)
 )
 
 export const authSlice = createSlice({
@@ -41,16 +26,6 @@ export const authSlice = createSlice({
     },
     reducers: {
         signIn: (state: AuthState, action: { payload: AuthRequest }) => {
-            // const { from }: any = location.state || { from: { pathname: ROUTER_URLS.HOME } };
-            if (action.payload.email === 'hpotter@gmail.com' && action.payload.password === 'Qwerty1@') {
-                state.isAuthorized = true;
-            } else {
-                state.isAuthorized = false;
-            }
-            state.rememberUser = action.payload.rememberUser;
-            // history.replace(from); // should be clarified - do sagas or thunks should be used?
-            localStorage.setItem('isAuthorized', `${state.isAuthorized}`);
-            localStorage.setItem('rememberUser', `${state.rememberUser}`);
         },
         signOut: (state: AuthState) => {
             state.isAuthorized = false;
@@ -59,9 +34,15 @@ export const authSlice = createSlice({
         }
     },
     extraReducers: {
-        [fetchUserByEmail.fulfilled.toString()]: (state, action) => {
-            console.log('111 state', state);
-            console.log('111 action', action);
+        [fetchUserByEmail.fulfilled.toString()]: (state, action: { payload: { isAuthorized: boolean, rememberUser: boolean } }) => {
+            console.log('async reducer');
+            console.log('action', action);
+            // const { from }: any = location.state || { from: { pathname: ROUTER_URLS.HOME } };
+            state.isAuthorized = action.payload.isAuthorized;
+            state.rememberUser = action.payload.rememberUser;
+            // history.replace(from); // done - do sagas or thunks should be used?
+            localStorage.setItem('isAuthorized', `${action.payload.isAuthorized}`);
+            localStorage.setItem('rememberUser', `${action.payload.rememberUser}`);
         }
     }
 });

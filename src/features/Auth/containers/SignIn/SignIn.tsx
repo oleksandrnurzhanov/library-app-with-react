@@ -55,7 +55,7 @@ const SignIn = () => {
         console.log('values', values);
         console.log('setSubmitting', setSubmitting);
         setTimeout(() => {
-            alert(JSON.stringify(values, null, 2));
+            // alert(JSON.stringify(values, null, 2));
             // dispatch(signIn(values));
             dispatch(fetchUserByEmail(values))
             setSubmitting(false);
@@ -109,7 +109,7 @@ const SignIn = () => {
                 </Typography>
                 {/* I'm not sure if it's a good practice to omit the `submit` functionality here and use pure onClick,
                 maybe there can be some a18y issues. But overall it's not a subject of our discussion here,
-                just thinking out loud - should be clarified */}
+                just thinking out loud - done */}
                 <form className={classes.form} noValidate onSubmit={e => { e.preventDefault(); }}>
                     <TextField
                         variant="outlined"

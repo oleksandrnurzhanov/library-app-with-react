@@ -9,9 +9,9 @@ import Container from '@material-ui/core/Container';
 import Nav from '../../components/Nav';
 import Footer from '../../components/Footer';
 import Error from '../../components/Error'
-import SignIn from "../Auth/components/SignIn";
-import SignUp from '../Auth/components/SignUp';
-import PrivateRoute from "../Auth/components/PrivateRoute";
+import SignIn from "../Auth/containers/SignIn";
+import SignUp from '../Auth/containers/SignUp';
+import PrivateRoute from "../Auth/containers/PrivateRoute";
 import { ROUTER_URLS } from "../../routes";
 /**
  * All features should export the Component by default

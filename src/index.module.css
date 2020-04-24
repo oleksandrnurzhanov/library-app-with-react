@@ -7,7 +7,7 @@
     config.selector.js
     calculations.selector.js
     ... etc
-    should be clarified - by default from create-react-app they have `.module` part in naming
+    done - by default from create-react-app they have `.module` part in naming
 */
 
 body {
