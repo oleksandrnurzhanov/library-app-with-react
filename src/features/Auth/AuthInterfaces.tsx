@@ -1,15 +1,13 @@
-import { UserTypes } from "./AuthEnums";
-
 export interface User {
-    id?: string,
-    type: UserTypes,
     firstName: string;
     lastName: string;
     email: string;
     password: string;
+    isAdmin: boolean;
+    id?: string;
 }
 
-export interface AuthRequest {
+export interface SignInRequest {
     email: string;
     password: string;
     rememberUser: boolean;

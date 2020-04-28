@@ -1,20 +1,20 @@
 import React, { useState } from 'react';
 import { useDispatch } from "react-redux";
-import { Link } from 'react-router-dom';
+import { Link, useHistory, useLocation } from 'react-router-dom';
 import Avatar from '@material-ui/core/Avatar';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
-import Button from '@material-ui/core/Button';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import { makeStyles } from '@material-ui/core/styles';
-import { signIn, fetchUserByEmail } from "../../AuthSlice";
+import { fetchUserByEmail } from "../../AuthSlice";
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from "yup";
-import { AuthRequest } from "../../AuthInterfaces";
+import { SignInRequest } from '../../AuthInterfaces';
+import { ROUTER_URLS } from "../../../../routes";
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -41,27 +41,14 @@ const SignIn = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [remember, setRemember] = useState(false);
+    const history = useHistory();
+    const location = useLocation();
     const dispatch = useDispatch();
-
-    const initialFormState: AuthRequest = {
+    const initialFormState: SignInRequest = {
         email: '',
         password: '',
         rememberUser: false
     };
-
-    const submitForm = ((values: AuthRequest, setSubmitting: any ) => {
-        dispatch(signIn(values));
-        console.log('Alohomora!');
-        console.log('values', values);
-        console.log('setSubmitting', setSubmitting);
-        setTimeout(() => {
-            // alert(JSON.stringify(values, null, 2));
-            // dispatch(signIn(values));
-            dispatch(fetchUserByEmail(values))
-            setSubmitting(false);
-        }, 400);
-    });
-
     const Schema = Yup.object().shape({
         email: Yup
             .string()
@@ -77,14 +64,22 @@ const SignIn = () => {
                 /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
                 "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character"
             )
-    })
+    });
+
+    const submitForm = ((req: SignInRequest, setSubmitting: any ) => {
+        const { from }: any = location.state || { from: { pathname: ROUTER_URLS.HOME } };
+        dispatch(fetchUserByEmail(req));
+        setSubmitting(false);
+        console.log('from', from);
+        history.replace(from);
+    });
 
     return (
         <Container maxWidth="xs">
             <Formik
                 initialValues={initialFormState}
                 validationSchema={Schema}
-                onSubmit={(values, { setSubmitting }) => submitForm(values, setSubmitting)}>
+                onSubmit={(req: SignInRequest, { setSubmitting }) => submitForm(req, setSubmitting)}>
                 {({ isSubmitting }) => (
                     <Form>
                         <Field type="email" name="email" />

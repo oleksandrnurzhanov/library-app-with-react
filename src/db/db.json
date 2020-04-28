@@ -1,20 +1,44 @@
 {
-    "users": [
-        {
-            "id": "fvrwxf3wp1",
-            "type": "ADMIN_USER",
-            "firstName": "Harry",
-            "lastName": "Potter",
-            "email": "hpotter@gmail.com",
-            "password": "Qwerty1@"
-        },
-        {
-            "id": "fvrwxf3wp2",
-            "type": "OTHER_USER",
-            "firstName": "Arthur",
-            "lastName": "Carry",
-            "email": "acurry@gmail.com",
-            "password": "Qwerty1@"
-        }
-    ]
+  "users": [
+    {
+      "firstName": "Harry",
+      "lastName": "Potter",
+      "email": "hpotter@gmail.com",
+      "password": "Qwerty1@",
+      "isAdmin": true,
+      "id": "fvrwxf3wp1"
+    },
+    {
+      "firstName": "Arthur",
+      "lastName": "Carry",
+      "email": "acurry@gmail.com",
+      "password": "Qwerty1@",
+      "isAdmin": false,
+      "id": "fvrwxf3wp2"
+    },
+    {
+      "firstName": "2",
+      "lastName": "2",
+      "email": "2@gmail.com",
+      "password": "Qwerty1@",
+      "isAdmin": true,
+      "id": "76gyL2R"
+    },
+    {
+      "firstName": "3",
+      "lastName": "3",
+      "email": "3@gmail.com",
+      "password": "Qwerty1@",
+      "isAdmin": true,
+      "id": "lzekLIk"
+    },
+    {
+      "firstName": "4",
+      "lastName": "4",
+      "email": "4@gmail.com",
+      "password": "Qwerty1@",
+      "isAdmin": false,
+      "id": "5kYRM9M"
+    }
+  ]
 }
