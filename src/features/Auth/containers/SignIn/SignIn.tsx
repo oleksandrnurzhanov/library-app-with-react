@@ -1,20 +1,22 @@
 import React, { useState } from 'react';
 import { useDispatch } from "react-redux";
 import { Link, useHistory, useLocation } from 'react-router-dom';
-import Avatar from '@material-ui/core/Avatar';
-import Container from '@material-ui/core/Container';
-import Typography from '@material-ui/core/Typography';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import TextField from '@material-ui/core/TextField';
-import Grid from '@material-ui/core/Grid';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import { makeStyles } from '@material-ui/core/styles';
-import { fetchUserByEmail } from "../../AuthSlice";
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { Formik, Form } from 'formik';
 import * as Yup from "yup";
+import {
+    Avatar,
+    Button,
+    Container,
+    Grid,
+    makeStyles,
+    Typography
+} from "@material-ui/core";
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import { fetchUserByEmail } from "../../AuthSlice";
 import { SignInRequest } from '../../AuthInterfaces';
 import { ROUTER_URLS } from "../../../../routes";
+import FormikTextField from "../../../../shared/components/FormikTextField";
+import FormikCheckbox from "../../../../shared/components/FormikCheckbox";
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -38,9 +40,6 @@ const useStyles = makeStyles((theme) => ({
 
 const SignIn = () => {
     const classes = useStyles();
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [remember, setRemember] = useState(false);
     const history = useHistory();
     const location = useLocation();
     const dispatch = useDispatch();
@@ -70,31 +69,12 @@ const SignIn = () => {
         const { from }: any = location.state || { from: { pathname: ROUTER_URLS.HOME } };
         dispatch(fetchUserByEmail(req));
         setSubmitting(false);
-        console.log('from', from);
+        console.log('submitForm', req);
         history.replace(from);
     });
 
     return (
         <Container maxWidth="xs">
-            <Formik
-                initialValues={initialFormState}
-                validationSchema={Schema}
-                onSubmit={(req: SignInRequest, { setSubmitting }) => submitForm(req, setSubmitting)}>
-                {({ isSubmitting }) => (
-                    <Form>
-                        <Field type="email" name="email" />
-                        <ErrorMessage name="email" component="div" />
-                        <Field type="password" name="password" />
-                        <ErrorMessage name="password" component="div" />
-                        <label htmlFor="rememberUser">
-                            <Field type="checkbox" name="rememberUser" />Remember me
-                        </label>
-                        <button type="submit" disabled={isSubmitting}>
-                            Submit
-                        </button>
-                    </Form>
-                )}
-            </Formik>
             <div className={classes.paper}>
                 <Avatar className={classes.avatar}>
                     <LockOutlinedIcon />
@@ -102,61 +82,39 @@ const SignIn = () => {
                 <Typography component="h1" variant="h5">
                     Sign in
                 </Typography>
-                {/* I'm not sure if it's a good practice to omit the `submit` functionality here and use pure onClick,
-                maybe there can be some a18y issues. But overall it's not a subject of our discussion here,
-                just thinking out loud - done */}
-                <form className={classes.form} noValidate onSubmit={e => { e.preventDefault(); }}>
-                    <TextField
-                        variant="outlined"
-                        margin="normal"
-                        required
-                        fullWidth
-                        id="email"
-                        label="Email Address"
-                        name="email"
-                        autoComplete="email"
-                        autoFocus
-                        onChange={e => setEmail(e.target.value)}
-                    />
-                    <TextField
-                        variant="outlined"
-                        margin="normal"
-                        required
-                        fullWidth
-                        name="password"
-                        label="Password"
-                        type="password"
-                        id="password"
-                        autoComplete="current-password"
-                        onChange={e => setPassword(e.target.value)}
-                    />
-                    <FormControlLabel
-                        control={<Checkbox color="primary" value={remember} onChange={e => setRemember(!remember)} />}
-                        label="Remember me"
-                    />
-                    {/*<Button*/}
-                    {/*    type="submit"*/}
-                    {/*    fullWidth*/}
-                    {/*    variant="contained"*/}
-                    {/*    color="primary"*/}
-                    {/*    className={classes.submit}*/}
-                    {/*    onClick={submitForm}*/}
-                    {/*>*/}
-                    {/*    Sign In*/}
-                    {/*</Button>*/}
-                    <Grid container>
-                        <Grid item xs>
-                            <Link to="/forgot">
-                                Forgot password?
-                            </Link>
-                        </Grid>
-                        <Grid item>
-                            <Link to="/sign-up">
-                                {"Don't have an account? Sign Up"}
-                            </Link>
-                        </Grid>
-                    </Grid>
-                </form>
+                <Formik
+                    initialValues={initialFormState}
+                    validationSchema={Schema}
+                    onSubmit={(values: SignInRequest, { setSubmitting }) => submitForm(values, setSubmitting)}>
+                    {({ values, isSubmitting }) => (
+                        <Form className={classes.form}>
+                            <FormikTextField name="email" label="Email Address" type="email" required />
+                            <FormikTextField name="password" label="Password" type="password" required />
+                            <FormikCheckbox name="rememberUser" label="Remember me" />
+                            <Button
+                                type="submit"
+                                fullWidth
+                                variant="contained"
+                                color="primary"
+                                className={classes.submit}
+                                disabled={isSubmitting}>
+                                Sign In
+                            </Button>
+                            <Grid container>
+                                <Grid item xs>
+                                    <Link to="/forgot">
+                                        Forgot password?
+                                    </Link>
+                                </Grid>
+                                <Grid item>
+                                    <Link to="/sign-up">
+                                        {"Don't have an account? Sign Up"}
+                                    </Link>
+                                </Grid>
+                            </Grid>
+                        </Form>
+                    )}
+                </Formik>
             </div>
         </Container>
     )
