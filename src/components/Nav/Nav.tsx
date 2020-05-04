@@ -15,7 +15,7 @@ const Nav = () => {
 
     let logOut = () => {
         dispatch(signOut());
-        history.push(ROUTER_URLS.HOME);
+        history.push(ROUTER_URLS.SIGN_IN);
     };
 
     if (!isAuthorized) return null;
@@ -30,7 +30,7 @@ const Nav = () => {
                         </h1>
                     </Link>
                     <ul className={styles.navLinks}>
-                        {/* I would add something like 'navLinkTitle' to each route we need here in the config and render it using Array.map - should be rechecked */}
+                        {/* TODO I would add something like 'navLinkTitle' to each route we need here in the config and render it using Array.map */}
                         <Link className={styles.navLink} to={ROUTER_URLS.CATEGORIES}>
                             <li>Categories</li>
                         </Link>

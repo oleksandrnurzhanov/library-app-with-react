@@ -13,19 +13,14 @@ import SignIn from "../Auth/containers/SignIn";
 import SignUp from '../Auth/containers/SignUp';
 import PrivateRoute from "../Auth/containers/PrivateRoute";
 import { ROUTER_URLS } from "../../routes";
-/**
- * All features should export the Component by default
- * Example will be shown with Categories screen - done
- */
 import Home from "../Home";
 import Categories from "../Categories";
 import Books from "../Books";
 import Users from "../Users";
 import Profile from "../Profile";
 
-// Return can be skipped here - done
 const App = () => <Router>
-    <div className={styles.app}> {/* I think we should use camelCase for classes, just have seen it being more widely used - done */}
+    <div className={styles.app}>
         <Nav/>
         <Container className={styles.Main} maxWidth="md">
             <Switch>

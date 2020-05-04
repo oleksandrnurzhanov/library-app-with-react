@@ -6,11 +6,12 @@ export const AuthAPi = {
     fetchUserByEmail: (req: SignInRequest) => {
         return axios.get(AuthAPi.USERS_URL)
             .then((res: AxiosResponse<User[]>) => {
-                const registeredUser = res.data.filter((user: User) => user.email === req.email && user.password === req.password);
+                const registeredUsers: User[] = res.data.filter((user: User) => user.email === req.email && user.password === req.password);
 
                 return {
-                    isAuthorized: !!registeredUser.length,
-                    rememberUser: req.rememberUser
+                    isAuthorized: !!registeredUsers.length,
+                    rememberUser: req.rememberUser,
+                    user: registeredUsers[0]
                 }
             })
             .catch((error: any) => {

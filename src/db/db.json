@@ -39,6 +39,70 @@
       "password": "Qwerty1@",
       "isAdmin": false,
       "id": "5kYRM9M"
+    },
+    {
+      "firstName": "John",
+      "lastName": "Doe",
+      "email": "johndoe@gmail.com",
+      "password": "Qwerty1@",
+      "isAdmin": true,
+      "id": "1BoNtwZ"
+    },
+    {
+      "firstName": "Peter",
+      "lastName": "Parker",
+      "email": "peterparker@gmail.com",
+      "password": "Qwerty1@",
+      "isAdmin": true,
+      "id": "r-cxwa5"
+    },
+    {
+      "firstName": "fname",
+      "lastName": "lname",
+      "email": "fl@gmail.com",
+      "password": "Qwerty1@",
+      "isAdmin": false,
+      "id": "VaLfd5E"
+    },
+    {
+      "firstName": "1",
+      "lastName": "1",
+      "email": "1@gmail.com",
+      "password": "Qwerty1@",
+      "isAdmin": false,
+      "id": "QpP_LMn"
+    },
+    {
+      "firstName": "2",
+      "lastName": "2",
+      "email": "2@gmail.com",
+      "password": "Qwerty1@",
+      "isAdmin": true,
+      "id": "f_dCjwP"
+    },
+    {
+      "firstName": "3",
+      "lastName": "3",
+      "email": "3@gmail.com",
+      "password": "Qwerty1@",
+      "isAdmin": false,
+      "id": "t-Nd6Wj"
+    },
+    {
+      "firstName": "Rob",
+      "lastName": "Bob",
+      "email": "robbob@gmail.com",
+      "password": "Qwerty1@",
+      "isAdmin": true,
+      "id": "rL6v4WF"
+    },
+    {
+      "firstName": "ae",
+      "lastName": "ae",
+      "email": "ae@gmail.com",
+      "password": "Qwerty1@",
+      "isAdmin": true,
+      "id": "weaVVii"
     }
   ]
 }

@@ -15,5 +15,6 @@ export interface SignInRequest {
 
 export interface AuthState {
     isAuthorized: boolean,
-    rememberUser: boolean
+    rememberUser: boolean,
+    user: User
 }

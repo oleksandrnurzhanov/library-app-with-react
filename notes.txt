@@ -4,10 +4,4 @@
 - Think about auth folders, containers should be renamed to components there - done
 - Create an `assets` folder and move `logo.svg` there - done
 
-done
-- why containers should be renamed to components in auth folder? - done
-- what the purpose of yarn.lock? - done
-
-- maybe remove npm and add yarn?
-
 

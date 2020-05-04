@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { SignInRequest, AuthState, User } from "./AuthInterfaces";
+import { SignInRequest, User } from "./AuthInterfaces";
 import { AuthAPi } from "./AuthAPI";
 
 export const fetchUserByEmail = createAsyncThunk(
@@ -15,26 +15,29 @@ export const registerUser = createAsyncThunk(
 export const authSlice = createSlice({
     name: 'auth',
     initialState: {
-        isAuthorized: false,
-        rememberUser: false
+        isAuthorized: !!localStorage.getItem("user"),
+        rememberUser: !!localStorage.getItem("rememberUser"),
+        user: JSON.parse(localStorage.getItem("user") as any) || {}
     },
     reducers: {
-        signOut: (state: AuthState) => {
+        signOut: (state: any) => {
+            localStorage.removeItem("user");
             state.isAuthorized = false;
-            localStorage.removeItem('isAuthorized');
-            localStorage.removeItem("rememberUser");
-            localStorage.removeItem("userData");
+            state.user = {};
         }
     },
     extraReducers: {
-        [fetchUserByEmail.fulfilled.toString()]: (state: AuthState, action: { payload: { isAuthorized: boolean, rememberUser: boolean } }) => {
-            state.isAuthorized = action.payload.isAuthorized;
-            state.rememberUser = action.payload.rememberUser;
+        [fetchUserByEmail.fulfilled.toString()]: (state: any, action: { payload: { isAuthorized: boolean, rememberUser: boolean, user: User } }) => {
             localStorage.setItem('isAuthorized', `${action.payload.isAuthorized}`);
             localStorage.setItem('rememberUser', `${action.payload.rememberUser}`);
+            localStorage.setItem('user', JSON.stringify(action.payload.user));
+            state.isAuthorized = action.payload.isAuthorized;
+            state.rememberUser = action.payload.rememberUser;
+            state.user = action.payload.user;
         },
-        [registerUser.fulfilled.toString()]: (state: AuthState, action: { payload: User }) => {
-            localStorage.setItem('userData', JSON.stringify(action.payload));
+        [registerUser.fulfilled.toString()]: (state: any, action: { payload: User }) => {
+            localStorage.setItem('user', JSON.stringify(action.payload));
+            state.user = action.payload;
         }
     }
 });

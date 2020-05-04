@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useDispatch } from "react-redux";
 import { Link, useHistory, useLocation } from 'react-router-dom';
 import { Formik, Form } from 'formik';
@@ -66,10 +66,10 @@ const SignIn = () => {
     });
 
     const submitForm = ((req: SignInRequest, setSubmitting: any ) => {
+        console.log('SignInRequest', req);
         const { from }: any = location.state || { from: { pathname: ROUTER_URLS.HOME } };
         dispatch(fetchUserByEmail(req));
         setSubmitting(false);
-        console.log('submitForm', req);
         history.replace(from);
     });
 
@@ -86,7 +86,7 @@ const SignIn = () => {
                     initialValues={initialFormState}
                     validationSchema={Schema}
                     onSubmit={(values: SignInRequest, { setSubmitting }) => submitForm(values, setSubmitting)}>
-                    {({ values, isSubmitting }) => (
+                    {({ isSubmitting }) => (
                         <Form className={classes.form}>
                             <FormikTextField name="email" label="Email Address" type="email" required />
                             <FormikTextField name="password" label="Password" type="password" required />

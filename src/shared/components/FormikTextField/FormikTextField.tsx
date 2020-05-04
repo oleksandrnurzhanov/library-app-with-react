@@ -1,6 +1,6 @@
 import React from "react";
-import { ErrorMessage, Field } from "formik";
-import TextField from "@material-ui/core/TextField";
+import { ErrorMessage, Field, useField } from "formik";
+import { Checkbox, TextField } from "@material-ui/core";
 
 interface FormikTextFieldProps {
     name: string;
@@ -9,24 +9,27 @@ interface FormikTextFieldProps {
     required?: boolean;
 }
 
-const FormikTextField: React.FC<FormikTextFieldProps> = ({ name, label, type = 'text', required = false}): JSX.Element => {
+const FormikTextField: React.FC<FormikTextFieldProps> = (props: FormikTextFieldProps): JSX.Element => {
+    const [field, meta] = useField(props);
+    const errorText = meta.error && meta.touched ? meta.error : "";
+
     return (
-        <div className="FormikTextField">
-            <Field
-                as={TextField}
-                variant="outlined"
-                margin="normal"
-                required={required}
-                fullWidth
-                id={name}
-                label={label}
-                name={name}
-                type={type}
-                autoComplete={name}
-                helperText={<ErrorMessage name={name}/>}
-            />
-        </div>
-    )
+        <TextField
+            {...props}
+            {...field}
+            helperText={errorText}
+            error={!!errorText}
+            variant="outlined"
+            margin="normal"
+            required={props.required}
+            fullWidth
+            id={props.name}
+            label={props.label}
+            name={props.name}
+            type={props.type}
+            autoComplete={props.name}
+        />
+    );
 };
 
 export default FormikTextField;
