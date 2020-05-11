@@ -10,11 +10,14 @@ export interface User {
 export interface SignInRequest {
     email: string;
     password: string;
+    rememberUser?: boolean;
+}
+
+export interface SignInResponse {
     rememberUser: boolean;
+    user: User
 }
 
 export interface AuthState {
-    isAuthorized: boolean,
-    rememberUser: boolean,
-    user: User
+    user: User | {}
 }

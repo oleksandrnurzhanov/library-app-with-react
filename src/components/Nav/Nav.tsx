@@ -2,15 +2,14 @@ import React from 'react';
 import styles from './Nav.module.scss';
 import Container from '@material-ui/core/Container';
 import { Link, useHistory } from 'react-router-dom';
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import Button from "@material-ui/core/Button";
 import { signOut } from "../../features/Auth/AuthSlice";
 import { ROUTER_URLS } from "../../routes";
-import { selectAuthorizedStatus } from "../../features/Auth/AuthSelectors";
+import _ from 'lodash';
 
-const Nav = () => {
+const Nav = (props: any) => {
     const history = useHistory();
-    const isAuthorized = useSelector(selectAuthorizedStatus);
     const dispatch = useDispatch();
 
     let logOut = () => {
@@ -18,7 +17,7 @@ const Nav = () => {
         history.push(ROUTER_URLS.SIGN_IN);
     };
 
-    if (!isAuthorized) return null;
+    if (_.isEmpty(props.user)) return null;
 
     return (
         <div className={styles.navWrapper}>

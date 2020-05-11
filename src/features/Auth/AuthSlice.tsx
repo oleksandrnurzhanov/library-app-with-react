@@ -1,10 +1,11 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { SignInRequest, User } from "./AuthInterfaces";
+import { AuthState, SignInRequest, SignInResponse, User } from "./AuthInterfaces";
 import { AuthAPi } from "./AuthAPI";
+import _ from 'lodash';
 
-export const fetchUserByEmail = createAsyncThunk(
-    'auth/fetchUserByEmailStatus',
-    async (values: SignInRequest, thunkAPI) => await AuthAPi.fetchUserByEmail(values)
+export const loginUser = createAsyncThunk(
+    'auth/loginUser',
+    async (values: SignInRequest, thunkAPI) => await AuthAPi.loginUser(values)
 )
 
 export const registerUser = createAsyncThunk(
@@ -15,27 +16,23 @@ export const registerUser = createAsyncThunk(
 export const authSlice = createSlice({
     name: 'auth',
     initialState: {
-        isAuthorized: !!localStorage.getItem("user"),
-        rememberUser: !!localStorage.getItem("rememberUser"),
-        user: JSON.parse(localStorage.getItem("user") as any) || {}
+        user: localStorage.getItem("user") !== null ? JSON.stringify(localStorage.getItem("user")) : {}
     },
     reducers: {
-        signOut: (state: any) => {
+        signOut: (state: AuthState) => {
             localStorage.removeItem("user");
-            state.isAuthorized = false;
             state.user = {};
         }
     },
     extraReducers: {
-        [fetchUserByEmail.fulfilled.toString()]: (state: any, action: { payload: { isAuthorized: boolean, rememberUser: boolean, user: User } }) => {
-            localStorage.setItem('isAuthorized', `${action.payload.isAuthorized}`);
-            localStorage.setItem('rememberUser', `${action.payload.rememberUser}`);
-            localStorage.setItem('user', JSON.stringify(action.payload.user));
-            state.isAuthorized = action.payload.isAuthorized;
-            state.rememberUser = action.payload.rememberUser;
+        [loginUser.fulfilled.toString()]: (state: AuthState, action: { payload: SignInResponse }) => {
+            if (action.payload.rememberUser) {
+                localStorage.setItem('user', JSON.stringify(action.payload.user));
+            }
             state.user = action.payload.user;
+            console.log('user', state.user);
         },
-        [registerUser.fulfilled.toString()]: (state: any, action: { payload: User }) => {
+        [registerUser.fulfilled.toString()]: (state: AuthState, action: { payload: User }) => {
             localStorage.setItem('user', JSON.stringify(action.payload));
             state.user = action.payload;
         }

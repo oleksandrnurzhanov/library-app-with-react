@@ -3,13 +3,12 @@ import { SignInRequest, User } from "./AuthInterfaces";
 
 export const AuthAPi = {
     USERS_URL: "http://localhost:3001/users",
-    fetchUserByEmail: (req: SignInRequest) => {
+    loginUser: (req: SignInRequest) => {
         return axios.get(AuthAPi.USERS_URL)
             .then((res: AxiosResponse<User[]>) => {
                 const registeredUsers: User[] = res.data.filter((user: User) => user.email === req.email && user.password === req.password);
 
                 return {
-                    isAuthorized: !!registeredUsers.length,
                     rememberUser: req.rememberUser,
                     user: registeredUsers[0]
                 }

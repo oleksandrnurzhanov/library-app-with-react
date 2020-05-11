@@ -1,29 +1,23 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import { ROUTER_URLS } from "../../../../routes";
-import { useSelector } from "react-redux";
-import { selectAuthorizedStatus } from "../../AuthSelectors";
+import _ from 'lodash';
 
-const PrivateRoute = ({ children, ...rest }: any) => {
-    const isAuthorized = useSelector(selectAuthorizedStatus);
-
+const PrivateRoute = ({ component: Component, ...rest }: any) => {
     return (
         <Route
             {...rest}
-            render={({ location }) =>
-                isAuthorized ? (
-                    children
+            render={(props: any) =>
+                !_.isEmpty(props.user) ? (
+                    <Component {...props} />
                 ) : (
                     <Redirect
-                        to={{
-                            pathname: ROUTER_URLS.SIGN_IN,
-                            state: { from: location }
-                        }}
+                        to={{ pathname: ROUTER_URLS.SIGN_IN, state: { from: props.location } }}
                     />
                 )
             }
         />
     );
-}
+};
 
 export default PrivateRoute;

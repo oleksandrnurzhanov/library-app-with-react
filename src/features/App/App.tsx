@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './App.module.scss';
+import { connect } from 'react-redux';
 import {
     BrowserRouter as Router,
     Switch,
@@ -18,24 +18,33 @@ import Categories from "../Categories";
 import Books from "../Books";
 import Users from "../Users";
 import Profile from "../Profile";
+import styles from './App.module.scss';
 
-const App = () => <Router>
+const mapStateToProps = (state: any) => {
+    const { auth } = state;
+
+    return {
+        user: auth.user
+    }
+};
+
+const App = (props: any) => <Router>
     <div className={styles.app}>
-        <Nav/>
+        <Nav user={props.user} />
         <Container className={styles.Main} maxWidth="md">
             <Switch>
                 <Route path={ROUTER_URLS.SIGN_IN} component={SignIn} />
                 <Route path={ROUTER_URLS.SIGN_UP} component={SignUp} />
-                <PrivateRoute path={ROUTER_URLS.HOME} exact component={Home} />
-                <PrivateRoute path={ROUTER_URLS.CATEGORIES} component={Categories} />
-                <PrivateRoute path={ROUTER_URLS.BOOKS} component={Books} />
-                <PrivateRoute path={ROUTER_URLS.USERS} component={Users} />
-                <PrivateRoute path={ROUTER_URLS.PROFILE} component={Profile} />
+                <PrivateRoute path={ROUTER_URLS.HOME} exact component={Home} user={props.user} />
+                <PrivateRoute path={ROUTER_URLS.CATEGORIES} component={Categories} user={props.user} />
+                <PrivateRoute path={ROUTER_URLS.BOOKS} component={Books} user={props.user} />
+                <PrivateRoute path={ROUTER_URLS.USERS} component={Users} user={props.user} />
+                <PrivateRoute path={ROUTER_URLS.PROFILE} component={Profile} user={props.user} />
                 <Route path={ROUTER_URLS.NOT_FOUND} component={Error} />
             </Switch>
         </Container>
-        <Footer/>
+        <Footer user={props.user} />
     </div>
 </Router>;
 
-export default App;
+export default connect(mapStateToProps, null)(App);

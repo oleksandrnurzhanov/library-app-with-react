@@ -1,12 +1,10 @@
 import React from 'react';
-import { User } from "../Auth/AuthInterfaces";
 import { selectUser } from "../Auth/AuthSelectors";
+import { User } from "../Auth/AuthInterfaces";
 import { useSelector } from "react-redux";
 
 const Profile = () => {
     const user: User = useSelector(selectUser);
-
-    console.log('user', user);
 
     return (
         <div>

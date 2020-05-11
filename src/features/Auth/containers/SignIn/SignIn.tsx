@@ -12,7 +12,7 @@ import {
     Typography
 } from "@material-ui/core";
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import { fetchUserByEmail } from "../../AuthSlice";
+import { loginUser } from "../../AuthSlice";
 import { SignInRequest } from '../../AuthInterfaces';
 import { ROUTER_URLS } from "../../../../routes";
 import FormikTextField from "../../../../shared/components/FormikTextField";
@@ -40,8 +40,6 @@ const useStyles = makeStyles((theme) => ({
 
 const SignIn = () => {
     const classes = useStyles();
-    const history = useHistory();
-    const location = useLocation();
     const dispatch = useDispatch();
     const initialFormState: SignInRequest = {
         email: '',
@@ -66,11 +64,8 @@ const SignIn = () => {
     });
 
     const submitForm = ((req: SignInRequest, setSubmitting: any ) => {
-        console.log('SignInRequest', req);
-        const { from }: any = location.state || { from: { pathname: ROUTER_URLS.HOME } };
-        dispatch(fetchUserByEmail(req));
+        dispatch(loginUser(req));
         setSubmitting(false);
-        history.replace(from);
     });
 
     return (
