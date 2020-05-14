@@ -2,9 +2,9 @@ export const ROUTER_URLS = {
     HOME: "/",
     SIGN_IN: "/sign-in",
     SIGN_UP: "/sign-up",
-    CATEGORIES: "/Categories",
-    BOOKS: "/Books",
-    USERS: "/Users",
-    PROFILE: "/Profile",
+    CATEGORIES: "/categories",
+    BOOKS: "/books",
+    USERS: "/users",
+    PROFILE: "/profile",
     NOT_FOUND: "*"
 };

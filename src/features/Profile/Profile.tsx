@@ -1,10 +1,16 @@
 import React from 'react';
-import { selectUser } from "../Auth/AuthSelectors";
-import { User } from "../Auth/AuthInterfaces";
-import { useSelector } from "react-redux";
+import { connect } from "react-redux";
 
-const Profile = () => {
-    const user: User = useSelector(selectUser);
+const mapStateToProps = (state: any) => {
+    const { auth } = state;
+
+    return {
+        user: auth.user
+    }
+};
+
+const Profile = (props: any) => {
+    const { user } = props;
 
     return (
         <div>
@@ -19,4 +25,4 @@ const Profile = () => {
     )
 };
 
-export default Profile;
+export default connect(mapStateToProps)(Profile);

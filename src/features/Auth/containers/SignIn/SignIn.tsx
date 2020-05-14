@@ -1,11 +1,12 @@
 import React from 'react';
-import { useDispatch } from "react-redux";
+import { connect, useDispatch } from "react-redux";
 import {
     Link,
     useHistory,
     useLocation
 } from 'react-router-dom';
-import { Formik, Form } from 'formik';
+import { withRouter } from 'react-router';
+import { Formik, Form, replace } from 'formik';
 import * as Yup from "yup";
 import {
     Avatar,
@@ -21,6 +22,7 @@ import { SignInRequest } from '../../AuthInterfaces';
 import { ROUTER_URLS } from "../../../../routes";
 import FormikTextField from "../../../../shared/components/FormikTextField";
 import FormikCheckbox from "../../../../shared/components/FormikCheckbox";
+import PropTypes from 'prop-types';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -42,10 +44,10 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const SignIn = () => {
+const SignIn = (props: any) => {
     const classes = useStyles();
     const dispatch = useDispatch();
-    const history = useHistory();
+    const { history } = props;
     const location = useLocation();
     const { from }: any = location.state || { from: { pathname: ROUTER_URLS.HOME } };
     const initialFormState: SignInRequest = {
@@ -57,24 +59,17 @@ const SignIn = () => {
         email: Yup
             .string()
             .required('Please enter your email address')
-            .matches(
-                /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
-                "Email is not valid"
-            ),
+            .max(60),
         password: Yup
             .string()
             .required('Please enter your password')
-            .matches(
-                /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
-                "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character"
-            )
+            .max(8)
     });
 
     const submitForm = ((req: SignInRequest, setSubmitting: any ) => {
         dispatch(loginUser(req));
         setSubmitting(false);
-        console.log('from', from);
-        history.replace(from);
+        history.push(from);
     });
 
     return (
@@ -124,4 +119,4 @@ const SignIn = () => {
     )
 };
 
-export default SignIn;
+export default withRouter(SignIn)
