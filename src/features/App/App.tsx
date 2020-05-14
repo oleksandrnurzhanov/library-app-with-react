@@ -33,9 +33,9 @@ const App = (props: any) => <Router>
         <Nav user={props.user} />
         <Container className={styles.Main} maxWidth="md">
             <Switch>
-                <Route path={ROUTER_URLS.SIGN_IN} component={SignIn} />
+                <Route path={ROUTER_URLS.HOME} exact component={Home} />
                 <Route path={ROUTER_URLS.SIGN_UP} component={SignUp} />
-                <PrivateRoute path={ROUTER_URLS.HOME} exact component={Home} user={props.user} />
+                <Route path={ROUTER_URLS.SIGN_IN} component={SignIn} />
                 <PrivateRoute path={ROUTER_URLS.CATEGORIES} component={Categories} user={props.user} />
                 <PrivateRoute path={ROUTER_URLS.BOOKS} component={Books} user={props.user} />
                 <PrivateRoute path={ROUTER_URLS.USERS} component={Users} user={props.user} />
@@ -47,4 +47,4 @@ const App = (props: any) => <Router>
     </div>
 </Router>;
 
-export default connect(mapStateToProps, null)(App);
+export default connect(mapStateToProps)(App);

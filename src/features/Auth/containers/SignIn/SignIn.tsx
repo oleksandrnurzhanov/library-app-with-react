@@ -1,6 +1,10 @@
 import React from 'react';
 import { useDispatch } from "react-redux";
-import { Link, useHistory, useLocation } from 'react-router-dom';
+import {
+    Link,
+    useHistory,
+    useLocation
+} from 'react-router-dom';
 import { Formik, Form } from 'formik';
 import * as Yup from "yup";
 import {
@@ -41,6 +45,9 @@ const useStyles = makeStyles((theme) => ({
 const SignIn = () => {
     const classes = useStyles();
     const dispatch = useDispatch();
+    const history = useHistory();
+    const location = useLocation();
+    const { from }: any = location.state || { from: { pathname: ROUTER_URLS.HOME } };
     const initialFormState: SignInRequest = {
         email: '',
         password: '',
@@ -66,6 +73,8 @@ const SignIn = () => {
     const submitForm = ((req: SignInRequest, setSubmitting: any ) => {
         dispatch(loginUser(req));
         setSubmitting(false);
+        console.log('from', from);
+        history.replace(from);
     });
 
     return (
