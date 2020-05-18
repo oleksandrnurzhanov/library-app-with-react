@@ -72,3 +72,13 @@
     opacity: 1;
     transition: 0s
 }
+
+.categories {
+    .title {
+        font-weight: 500;
+    }
+
+    .divider {
+        border-top: 1px solid #eee;
+    }
+}

@@ -23,6 +23,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 * [JSON Server](https://www.npmjs.com/package/json-server)
 * [React Developer Tools](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=en)
 * [Redux DevTools](https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd?hl=en)
+* [Google Fonts](https://fonts.google.com/)
 
 ## Prerequisites
 

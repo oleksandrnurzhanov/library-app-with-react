@@ -44,8 +44,7 @@ const Nav = (props: any) => {
                             <li>Profile</li>
                         </Link>
                         <Button
-                            variant="contained"
-                            color="primary"
+                            variant="outlined"
                             onClick={logOut}>Sign out</Button>
                     </ul>
                 </nav>

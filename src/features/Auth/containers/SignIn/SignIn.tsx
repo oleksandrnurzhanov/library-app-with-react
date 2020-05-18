@@ -1,12 +1,11 @@
 import React from 'react';
-import { connect, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
     Link,
-    useHistory,
     useLocation
 } from 'react-router-dom';
 import { withRouter } from 'react-router';
-import { Formik, Form, replace } from 'formik';
+import { Formik, Form } from 'formik';
 import * as Yup from "yup";
 import {
     Avatar,
@@ -22,7 +21,6 @@ import { SignInRequest } from '../../AuthInterfaces';
 import { ROUTER_URLS } from "../../../../routes";
 import FormikTextField from "../../../../shared/components/FormikTextField";
 import FormikCheckbox from "../../../../shared/components/FormikCheckbox";
-import PropTypes from 'prop-types';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -67,9 +65,10 @@ const SignIn = (props: any) => {
     });
 
     const submitForm = ((req: SignInRequest, setSubmitting: any ) => {
-        dispatch(loginUser(req));
-        setSubmitting(false);
-        history.push(from);
+        dispatch(loginUser(req) as any).then(() => {
+            setSubmitting(false);
+            history.replace(from);
+        })
     });
 
     return (

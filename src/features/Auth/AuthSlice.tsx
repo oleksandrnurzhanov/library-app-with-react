@@ -1,7 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { AuthState, SignInRequest, SignInResponse, User } from "./AuthInterfaces";
 import { AuthAPi } from "./AuthAPI";
-import _ from 'lodash';
 
 export const loginUser = createAsyncThunk(
     'auth/loginUser',
