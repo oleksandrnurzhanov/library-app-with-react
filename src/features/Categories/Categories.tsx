@@ -10,6 +10,7 @@ import {
 
 const Categories = () => {
     const numbers = [1, 2, 3, 4, 5];
+    // For now it's ok but we will have to create a separate component called Category for rendering list items
     const listItems = numbers.map((number) =>
         <div key={number}>
             <ListItem button>

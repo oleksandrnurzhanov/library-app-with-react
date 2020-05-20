@@ -2,7 +2,7 @@ import axios, { AxiosResponse } from "axios";
 import { SignInRequest, User } from "./AuthInterfaces";
 
 export const AuthAPi = {
-    USERS_URL: "http://localhost:3001/users",
+    USERS_URL: "http://localhost:3001/users", // Base path should be set in one place, but I'm sure you know it :)
     loginUser: (req: SignInRequest) => {
         return axios.get(AuthAPi.USERS_URL)
             .then((res: AxiosResponse<User[]>) => {

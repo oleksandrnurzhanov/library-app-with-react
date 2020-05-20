@@ -65,6 +65,11 @@ const SignIn = (props: any) => {
     });
 
     const submitForm = ((req: SignInRequest, setSubmitting: any ) => {
+        // Flow like this looks a bit strange to me but it's provided in docs of redux-toolkit.
+        // I guess it's the correct way of reacting to fulfilled async action from components
+        // As I've said, in my experience all navigation was handled by dispatching something like `navigateTo`
+        // action from async middleware, but you should absolutely prefer the flow described in the docs here
+        // Also flow from my experience is a bit better because it abstracts all the navigation logic into separate action
         dispatch(loginUser(req) as any).then(() => {
             setSubmitting(false);
             history.replace(from);

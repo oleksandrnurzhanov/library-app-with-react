@@ -20,6 +20,8 @@ import Users from "../Users";
 import Profile from "../Profile";
 import styles from './App.module.scss';
 
+// You should get rid of mapStateToProps everywhere in favor of useSelector()
+// and useDispatch() instead of mapDispatchToProps()
 const mapStateToProps = (state: any) => {
     const { auth } = state;
 

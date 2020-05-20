@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from "react-redux";
 
+// Change mapStateToProps to const user = useSelector(userSelector);
 const mapStateToProps = (state: any) => {
     const { auth } = state;
 
