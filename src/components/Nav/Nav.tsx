@@ -5,16 +5,30 @@ import { Link, useHistory } from 'react-router-dom';
 import { useDispatch } from "react-redux";
 import Button from "@material-ui/core/Button";
 import { signOut } from "../../features/Auth/AuthSlice";
-import { ROUTER_URLS } from "../../routes";
+import { ROUTER_URLS_MAP } from '../../Routes';
 import _ from 'lodash';
+import { ROUTER_URLS } from "../../RoutesEnums";
 
 const Nav = (props: any) => {
     const history = useHistory();
     const dispatch = useDispatch();
+    const routes: ROUTER_URLS[] = [
+        ROUTER_URLS.Categories,
+        ROUTER_URLS.Books,
+        ROUTER_URLS.Users,
+        ROUTER_URLS.Profile
+    ]
+    const routeItems = routes.map((route: ROUTER_URLS, index: number) =>
+        <li className={styles.navLink} key={index}>
+            <Link to={ROUTER_URLS_MAP[route]}>
+                <span>{route}</span>
+            </Link>
+        </li>
+    );
 
-    let logOut = () => {
+    const logOut = () => {
         dispatch(signOut());
-        history.push(ROUTER_URLS.SIGN_IN);
+        history.push(ROUTER_URLS_MAP[ROUTER_URLS.SignIn]);
     };
 
     if (_.isEmpty(props.user)) return null;
@@ -23,29 +37,19 @@ const Nav = (props: any) => {
         <div className={styles.navWrapper}>
             <Container maxWidth="md">
                 <nav className={styles.nav}>
-                    <Link className={styles.navLogoLink} to={ROUTER_URLS.HOME}>
+                    <Link className={styles.navLogoLink} to={ROUTER_URLS_MAP[ROUTER_URLS.Home]}>
                         <h1>
                             Library App
                         </h1>
                     </Link>
                     <ul className={styles.navLinks}>
-                        {/* TODO I would add something like 'navLinkTitle' to each route we need here in the config and render it using Array.map */}
-                        <Link className={styles.navLink} to={ROUTER_URLS.CATEGORIES}>
-                            <li>Categories</li>
-                        </Link>
-                        <Link className={styles.navLink} to={ROUTER_URLS.BOOKS}>
-                            <li>Books</li>
-                        </Link>
-                        <Link className={styles.navLink} to={ROUTER_URLS.USERS}>
-                            <li>Users</li>
-                        </Link>
+                        {routeItems}
                         <li className={styles.navLink}>|</li>
-                        <Link className={styles.navLink} to={ROUTER_URLS.PROFILE}>
-                            <li>Profile</li>
-                        </Link>
-                        <Button
-                            variant="outlined"
-                            onClick={logOut}>Sign out</Button>
+                        <li className={styles.navLink}>
+                            <Button
+                                variant="outlined"
+                                onClick={logOut}>Sign out</Button>
+                        </li>
                     </ul>
                 </nav>
             </Container>

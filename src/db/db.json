@@ -106,6 +106,25 @@
     }
   ],
   "categories": [
-
+    {
+      "title": "Adventures",
+      "id": "catMMd1"
+    },
+    {
+      "title": "Business",
+      "id": "catMMd2"
+    },
+    {
+      "title": "Fantasy",
+      "id": "catMMd3"
+    },
+    {
+      "title": "Fiction",
+      "id": "catMMd4"
+    },
+    {
+      "title": "Science",
+      "id": "catMMd5"
+    }
   ]
 }

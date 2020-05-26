@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { AuthState, SignInRequest, SignInResponse, User } from "./AuthInterfaces";
+import { SignInRequest, SignInResponse, User } from "./AuthInterfaces";
 import { AuthAPi } from "./AuthAPI";
+import { LocalStorageUtils } from "../../shared/utils/LocalStorageUtils";
 
 export const loginUser = createAsyncThunk(
     'auth/loginUser',
@@ -15,24 +16,24 @@ export const registerUser = createAsyncThunk(
 export const authSlice = createSlice({
     name: 'auth',
     initialState: {
-        user: localStorage.getItem("user") !== null ? JSON.stringify(localStorage.getItem("user")) : {}
+        user: LocalStorageUtils.getItem('user')
     },
     reducers: {
-        signOut: (state: AuthState) => {
-            localStorage.removeItem("user");
+        signOut: (state: any) => {
+            LocalStorageUtils.removeItem('user');
             state.user = {};
         }
     },
     extraReducers: {
-        [loginUser.fulfilled.toString()]: (state: AuthState, action: { payload: SignInResponse }) => {
+        [loginUser.fulfilled.toString()]: (state: any, action: { payload: SignInResponse }) => {
             if (action.payload.rememberUser) {
-                localStorage.setItem('user', JSON.stringify(action.payload.user));
+                LocalStorageUtils.setItem('user', action.payload.user);
             }
             state.user = action.payload.user;
             console.log('user', state.user);
         },
-        [registerUser.fulfilled.toString()]: (state: AuthState, action: { payload: User }) => {
-            localStorage.setItem('user', JSON.stringify(action.payload));
+        [registerUser.fulfilled.toString()]: (state: any, action: { payload: User }) => {
+            LocalStorageUtils.setItem('user', action.payload);
             state.user = action.payload;
         }
     }

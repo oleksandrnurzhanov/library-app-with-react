@@ -12,13 +12,14 @@ import Error from '../../components/Error'
 import SignIn from "../Auth/containers/SignIn";
 import SignUp from '../Auth/containers/SignUp';
 import PrivateRoute from "../Auth/containers/PrivateRoute";
-import { ROUTER_URLS } from "../../routes";
+import { ROUTER_URLS_MAP } from "../../Routes";
 import Home from "../Home";
 import Categories from "../Categories";
 import Books from "../Books";
 import Users from "../Users";
 import Profile from "../Profile";
 import styles from './App.module.scss';
+import { ROUTER_URLS } from "../../RoutesEnums";
 
 // You should get rid of mapStateToProps everywhere in favor of useSelector()
 // and useDispatch() instead of mapDispatchToProps()
@@ -35,14 +36,14 @@ const App = (props: any) => <Router>
         <Nav user={props.user} />
         <Container className={styles.Main} maxWidth="md">
             <Switch>
-                <Route path={ROUTER_URLS.SIGN_IN} component={SignIn} />
-                <Route path={ROUTER_URLS.SIGN_UP} component={SignUp} />
-                <PrivateRoute path={ROUTER_URLS.HOME} exact component={Home} user={props.user} />
-                <PrivateRoute path={ROUTER_URLS.CATEGORIES} component={Categories} user={props.user} />
-                <PrivateRoute path={ROUTER_URLS.BOOKS} component={Books} user={props.user} />
-                <PrivateRoute path={ROUTER_URLS.USERS} component={Users} user={props.user} />
-                <PrivateRoute path={ROUTER_URLS.PROFILE} component={Profile} user={props.user} />
-                <Route path={ROUTER_URLS.NOT_FOUND} component={Error} />
+                <Route path={ROUTER_URLS_MAP[ROUTER_URLS.SignIn]} component={SignIn} />
+                <Route path={ROUTER_URLS_MAP[ROUTER_URLS.SignUp]} component={SignUp} />
+                <PrivateRoute path={ROUTER_URLS_MAP[ROUTER_URLS.Home]} exact component={Home} user={props.user} />
+                <PrivateRoute path={ROUTER_URLS_MAP[ROUTER_URLS.Categories]} component={Categories} user={props.user} />
+                <PrivateRoute path={ROUTER_URLS_MAP[ROUTER_URLS.Books]} component={Books} user={props.user} />
+                <PrivateRoute path={ROUTER_URLS_MAP[ROUTER_URLS.Users]} component={Users} user={props.user} />
+                <PrivateRoute path={ROUTER_URLS_MAP[ROUTER_URLS.Profile]} component={Profile} user={props.user} />
+                <Route path={ROUTER_URLS_MAP[ROUTER_URLS.NotFound]} component={Error} />
             </Switch>
         </Container>
         <Footer user={props.user} />

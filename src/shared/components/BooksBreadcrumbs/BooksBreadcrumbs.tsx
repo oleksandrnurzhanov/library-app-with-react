@@ -2,7 +2,8 @@ import React from 'react';
 import { Breadcrumbs, Typography } from "@material-ui/core";
 import { Link } from 'react-router-dom';
 import styles from './BooksBreadcrumbs.module.scss';
-import { ROUTER_URLS } from "../../../routes";
+import { ROUTER_URLS_MAP } from "../../../Routes";
+import { ROUTER_URLS } from "../../../RoutesEnums";
 
 // Breadcrumbs path should be fully controllable through props
 // if it's the breadcrumbs which can be used elsewhere in the app
@@ -11,7 +12,7 @@ const BooksBreadcrumbs = ({ url, pageName }: any) => {
     return (
         <div className={styles.booksBreadcrumbs}>
             <Breadcrumbs aria-label="breadcrumb">
-                <Link to={ROUTER_URLS.HOME}>Home</Link>
+                <Link to={ROUTER_URLS_MAP[ROUTER_URLS.Home]}>Home</Link>
                 <Typography color="textPrimary">{pageName}</Typography>
             </Breadcrumbs>
         </div>

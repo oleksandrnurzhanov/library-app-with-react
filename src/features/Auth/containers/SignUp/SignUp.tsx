@@ -14,7 +14,8 @@ import { registerUser } from "../../AuthSlice";
 import { useDispatch } from "react-redux";
 import FormikTextField from "../../../../shared/components/FormikTextField";
 import FormikCheckbox from "../../../../shared/components/FormikCheckbox";
-import { ROUTER_URLS } from "../../../../routes";
+import { ROUTER_URLS_MAP } from "../../../../Routes";
+import { ROUTER_URLS } from "../../../../RoutesEnums";
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -73,7 +74,7 @@ const SignUp = () => {
 
     const submitForm = ((user: User, setSubmitting: any ) => {
         console.log('userData', user);
-        const { from }: any = location.state || { from: { pathname: ROUTER_URLS.SIGN_IN } };
+        const { from }: any = location.state || { from: { pathname: ROUTER_URLS_MAP[ROUTER_URLS.SignIn] } };
         dispatch(registerUser(user));
         setSubmitting(false);
         history.replace(from);

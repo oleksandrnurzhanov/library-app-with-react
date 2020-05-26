@@ -1,7 +1,8 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
-import { ROUTER_URLS } from "../../../../routes";
+import { ROUTER_URLS_MAP } from "../../../../Routes";
 import _ from 'lodash';
+import { ROUTER_URLS } from "../../../../RoutesEnums";
 
 const PrivateRoute = ({ component: Component, user, ...rest }: any) => {
     return (
@@ -12,7 +13,7 @@ const PrivateRoute = ({ component: Component, user, ...rest }: any) => {
                     <Component {...props} />
                 ) : (
                     <Redirect
-                        to={{ pathname: ROUTER_URLS.SIGN_IN }}
+                        to={{ pathname: ROUTER_URLS_MAP[ROUTER_URLS.SignIn] }}
                     />
                 )
             }

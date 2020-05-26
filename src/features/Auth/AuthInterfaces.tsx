@@ -19,5 +19,7 @@ export interface SignInResponse {
 }
 
 export interface AuthState {
-    user: User | {}
+   auth: {
+       user: User
+   }
 }

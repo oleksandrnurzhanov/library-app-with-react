@@ -18,9 +18,10 @@ import {
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { loginUser } from "../../AuthSlice";
 import { SignInRequest } from '../../AuthInterfaces';
-import { ROUTER_URLS } from "../../../../routes";
+import { ROUTER_URLS_MAP } from "../../../../Routes";
 import FormikTextField from "../../../../shared/components/FormikTextField";
 import FormikCheckbox from "../../../../shared/components/FormikCheckbox";
+import { ROUTER_URLS } from "../../../../RoutesEnums";
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -47,7 +48,7 @@ const SignIn = (props: any) => {
     const dispatch = useDispatch();
     const { history } = props;
     const location = useLocation();
-    const { from }: any = location.state || { from: { pathname: ROUTER_URLS.HOME } };
+    const { from }: any = location.state || { from: { pathname: ROUTER_URLS_MAP[ROUTER_URLS.Home] } };
     const initialFormState: SignInRequest = {
         email: '',
         password: '',
