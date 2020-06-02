@@ -1,37 +1,49 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import BooksBreadcrumbs from "../../shared/components/BooksBreadcrumbs";
 import styles from './Categories.module.scss';
 import {
     Button,
     Divider,
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogTitle,
     List,
     ListItem,
-    ListItemText
+    ListItemText,
+    TextField
 } from "@material-ui/core";
 import AddIcon from '@material-ui/icons/Add';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { User } from "../Auth/AuthInterfaces";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { selectUser } from "../Auth/AuthSelectors";
 import _ from "lodash";
 import { LocalStorageUtils } from "../../shared/utils/LocalStorageUtils";
+import { getCategories } from "./CategoriesSlice";
+import { CategoryResponse } from "./CategoriesInterfaces";
 
 const Categories = () => {
-    // TODO refactor this case
+    const dispatch = useDispatch();
     const userFromState: User = useSelector(selectUser);
     const user: User = !_.isEmpty(LocalStorageUtils.getItem('user'))
         ? LocalStorageUtils.getItem('user')
         : userFromState;
 
-    // TODO change to receiving via API
-    const categories = [
-        "Adventures",
-        "Business",
-        "Fantasy",
-        "Fiction",
-        "Science",
-    ];
+    const [open, setOpen] = useState(false);
+    const [categoryName, setCategoryName] = useState("");
+    const [categories, setCategories] = useState([]);
+
+    const handleOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+        console.log('created category', categoryName);
+    };
+
     // For now it's ok but we will have to create a separate component called Category for rendering list items
     const listItems = categories.map((category: string, index: number) =>
         <div key={index}>
@@ -44,12 +56,44 @@ const Categories = () => {
         </div>
     );
 
+    useEffect(() => {
+        dispatch(getCategories() as any).then((res: CategoryResponse) => {
+            setCategories(res.data as any);
+        });
+    });
+
     return (
         <div className={styles.categories}>
             <BooksBreadcrumbs pageName="Categories" />
-            { !_.isEmpty(user) && user.isAdmin && <Button color="primary" startIcon={<AddIcon />}>Create category</Button> }
+            { !_.isEmpty(user) && user.isAdmin && <Button color="primary" startIcon={<AddIcon />} onClick={handleOpen}>Create category</Button> }
+            <Dialog open={open}
+                    onClose={handleClose}
+                    aria-labelledby="form-dialog-title">
+                <DialogTitle id="form-dialog-title">Create category</DialogTitle>
+                <DialogContent>
+                    <TextField
+                        autoFocus
+                        margin="dense"
+                        id="category"
+                        label="Category Name"
+                        type="text"
+                        value={categoryName}
+                        onChange={(e: any) => setCategoryName(e.target.value)}
+                        fullWidth
+                    />
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleClose} color="primary">
+                        Cancel
+                    </Button>
+                    <Button onClick={handleClose} color="primary">
+                        Create
+                    </Button>
+                </DialogActions>
+            </Dialog>
             <Divider />
             <List component="nav" aria-label="categories">
+                // TODO check how to render async received items
                 {listItems}
             </List>
         </div>

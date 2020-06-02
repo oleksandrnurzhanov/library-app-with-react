@@ -1,10 +1,10 @@
 import axios, { AxiosResponse } from "axios";
 import { SignInRequest, User } from "./AuthInterfaces";
+import { API_URLS } from "../../shared/constants/AppConstants";
 
 export const AuthAPi = {
-    USERS_URL: "http://localhost:3001/users", // Base path should be set in one place, but I'm sure you know it :)
     loginUser: (req: SignInRequest) => {
-        return axios.get(AuthAPi.USERS_URL)
+        return axios.get(API_URLS.USERS)
             .then((res: AxiosResponse<User[]>) => {
                 const registeredUsers: User[] = res.data.filter((user: User) => user.email === req.email && user.password === req.password);
 
@@ -18,7 +18,7 @@ export const AuthAPi = {
             });
     },
     registerUser: (user: User) => {
-        return axios.post(AuthAPi.USERS_URL, user, {  headers: { accept: 'application/json' }})
+        return axios.post(API_URLS.USERS, user, {  headers: { accept: 'application/json' }})
             .then((res: AxiosResponse<User>) => res)
             .catch((error: any) => {
                console.log(error);

@@ -13,6 +13,7 @@ export const registerUser = createAsyncThunk(
     async (user: User) => await AuthAPi.registerUser(user)
 )
 
+// TODO add 'auth' to variable
 export const authSlice = createSlice({
     name: 'auth',
     initialState: {
@@ -30,7 +31,6 @@ export const authSlice = createSlice({
                 LocalStorageUtils.setItem('user', action.payload.user);
             }
             state.user = action.payload.user;
-            console.log('user', state.user);
         },
         [registerUser.fulfilled.toString()]: (state: any, action: { payload: User }) => {
             LocalStorageUtils.setItem('user', action.payload);

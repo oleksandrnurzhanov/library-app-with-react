@@ -6,7 +6,7 @@ import { User } from "../Auth/AuthInterfaces";
 import { LocalStorageUtils } from "../../shared/utils/LocalStorageUtils";
 
 const Profile = () => {
-    // TODO refactor this case
+    // TODO refactor this case and for all other cases also
     const userFromState: User = useSelector(selectUser);
     const user: User = !_.isEmpty(LocalStorageUtils.getItem('user'))
         ? LocalStorageUtils.getItem('user')

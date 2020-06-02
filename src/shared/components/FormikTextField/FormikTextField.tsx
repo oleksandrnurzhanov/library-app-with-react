@@ -1,6 +1,6 @@
 import React from "react";
-import { ErrorMessage, Field, useField } from "formik";
-import { Checkbox, TextField } from "@material-ui/core";
+import { useField } from "formik";
+import { TextField } from "@material-ui/core";
 
 interface FormikTextFieldProps {
     name: string;

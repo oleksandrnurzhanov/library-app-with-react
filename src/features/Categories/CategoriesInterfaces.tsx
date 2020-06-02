@@ -1,5 +1,9 @@
-// TODO ask about naming convention regarding file with interfaces
 export interface Category {
     name: string;
-    booksAmount?: number;
+    id?: string;
+}
+
+export interface CategoryResponse {
+    data: Category[],
+    totalCount: number
 }
