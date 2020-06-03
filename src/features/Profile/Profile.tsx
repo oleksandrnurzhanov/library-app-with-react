@@ -3,14 +3,10 @@ import _ from "lodash";
 import { useSelector } from "react-redux";
 import { selectUser } from "../Auth/AuthSelectors";
 import { User } from "../Auth/AuthInterfaces";
-import { LocalStorageUtils } from "../../shared/utils/LocalStorageUtils";
 
 const Profile = () => {
-    // TODO refactor this case and for all other cases also
-    const userFromState: User = useSelector(selectUser);
-    const user: User = !_.isEmpty(LocalStorageUtils.getItem('user'))
-        ? LocalStorageUtils.getItem('user')
-        : userFromState;
+    // TODO refactor this case and for all other cases also - done
+    const user: User = useSelector(selectUser);
 
     return (
         <div>

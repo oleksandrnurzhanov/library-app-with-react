@@ -49,6 +49,8 @@ const Categories = () => {
         <div key={index}>
             <ListItem button>
                 <ListItemText primary={category} />
+                {/*TODO refactor this solution */}
+                {/*!_.isEmpty(user) do this before showing anything for example on loading stage*/}
                 { !_.isEmpty(user) && user.isAdmin && <Button color="primary" startIcon={<EditIcon />} /> }
                 { !_.isEmpty(user) && user.isAdmin && <Button color="secondary" startIcon={<DeleteIcon />} /> }
             </ListItem>
