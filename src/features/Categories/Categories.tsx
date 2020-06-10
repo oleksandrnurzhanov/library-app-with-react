@@ -21,8 +21,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectUser } from "../Auth/AuthSelectors";
 import _ from "lodash";
 import { LocalStorageUtils } from "../../shared/utils/LocalStorageUtils";
-import { getCategories } from "./CategoriesSlice";
-import { CategoryResponse } from "./CategoriesInterfaces";
+import {
+    getCategories,
+    createCategory,
+    deleteCategory,
+} from "./CategoriesSlice";
+import { Category, CategoryResponse } from "./CategoriesInterfaces";
 
 const Categories = () => {
     const dispatch = useDispatch();
@@ -42,25 +46,33 @@ const Categories = () => {
     const handleClose = () => {
         setOpen(false);
         console.log('created category', categoryName);
+        dispatch(createCategory({ name: categoryName }) as any).then((res: any) => {
+            console.log('res', res);
+        });
     };
 
-    // For now it's ok but we will have to create a separate component called Category for rendering list items
-    const listItems = categories.map((category: string, index: number) =>
+    const removeCategory = (id: any) => {
+        const categoryId: string = id || '';
+        dispatch(deleteCategory(categoryId) as any);
+    }
+
+    // TODO move to separate Category component
+    const listItems = categories.map((category: Category, index: number) =>
         <div key={index}>
             <ListItem button>
-                <ListItemText primary={category} />
+                <ListItemText primary={category.name} />
                 {/*TODO refactor this solution */}
                 {/*!_.isEmpty(user) do this before showing anything for example on loading stage*/}
                 { !_.isEmpty(user) && user.isAdmin && <Button color="primary" startIcon={<EditIcon />} /> }
-                { !_.isEmpty(user) && user.isAdmin && <Button color="secondary" startIcon={<DeleteIcon />} /> }
+                { !_.isEmpty(user) && user.isAdmin && <Button color="secondary" onClick={removeCategory(category.id)} startIcon={<DeleteIcon />} /> }
             </ListItem>
             <Divider />
         </div>
     );
 
     useEffect(() => {
-        dispatch(getCategories() as any).then((res: CategoryResponse) => {
-            setCategories(res.data as any);
+        dispatch(getCategories() as any).then((res: { payload: CategoryResponse }) => {
+            setCategories(res.payload.data as any);
         });
     });
 
@@ -95,7 +107,6 @@ const Categories = () => {
             </Dialog>
             <Divider />
             <List component="nav" aria-label="categories">
-                // TODO check how to render async received items
                 {listItems}
             </List>
         </div>

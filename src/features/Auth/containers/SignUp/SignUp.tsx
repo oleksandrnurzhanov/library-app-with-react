@@ -72,12 +72,12 @@ const SignUp = () => {
             )
     });
 
-    const submitForm = ((user: User, setSubmitting: any ) => {
-        console.log('userData', user);
+    const submitForm = ((user: User, setSubmitting: any) => {
         const { from }: any = location.state || { from: { pathname: ROUTER_URLS_MAP[ROUTER_URLS.SignIn] } };
-        dispatch(registerUser(user));
-        setSubmitting(false);
-        history.replace(from);
+        dispatch(registerUser(user) as any).then(() => {
+            setSubmitting(false);
+            history.replace(from);
+        });
     });
 
     return (

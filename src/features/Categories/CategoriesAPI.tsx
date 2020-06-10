@@ -6,6 +6,7 @@ export const CategoriesAPI = {
     getCategories: () => {
         return axios.get(API_URLS.CATEGORIES)
             .then((res: AxiosResponse<Category[]>): CategoryResponse => {
+                console.log('CATEGORIES - GET ALL', res);
                 return {
                     data: res.data,
                     totalCount: res.data.length
@@ -19,13 +20,22 @@ export const CategoriesAPI = {
     },
     createCategory: (category: Category) => {
         return axios.post(API_URLS.CATEGORIES, category, {  headers: { accept: 'application/json' }})
-            .then((res: AxiosResponse<Category>) => res)
+            .then((res: AxiosResponse<Category>) => {
+                console.log('CATEGORIES - CREATE', res);
+            })
             .catch((error: any) => {
                 console.log(error);
             });
     },
     updateCategory: () => {
     },
-    deleteCategory: () => {
+    deleteCategory: (categoryId: string) => {
+        return axios.delete(API_URLS.CATEGORIES, { params: { ID: categoryId }})
+            .then((res: any) => {
+                console.log('CATEGORIES - DELETE', res);
+            })
+            .catch((error: any) => {
+                console.log(error);
+            })
     }
 }
