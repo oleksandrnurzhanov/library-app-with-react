@@ -108,7 +108,29 @@
   "categories": [
     {
       "name": "Adventures",
-      "id": "catMMd1"
+      "id": "catMMd1",
+      "books": [
+        {
+          "title": "title1",
+          "image": "some_path_to_image",
+          "authors": [
+            {
+              "name": "Autho1",
+              "id": "autho1"
+            }
+          ]
+        },
+        {
+          "title": "title2",
+          "image": "some_path_to_image",
+          "authors": [
+            {
+              "name": "Autho2",
+              "id": "autho2"
+            }
+          ]
+        }
+      ]
     },
     {
       "name": "Business",

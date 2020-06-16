@@ -11,6 +11,11 @@ export const getCategories = createAsyncThunk(
     async () => await CategoriesAPI.getCategories()
 )
 
+export const getCategoryBooks = createAsyncThunk(
+    'categories/getBooksByCategoryId',
+    async (categoryId: any) => await CategoriesAPI.getCategoryBooks(categoryId)
+)
+
 export const createCategory = createAsyncThunk(
     'categories/createCategory',
     async (category: Category) => await CategoriesAPI.createCategory(category)

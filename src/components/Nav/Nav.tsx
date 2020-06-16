@@ -33,8 +33,9 @@ const Nav = () => {
     );
 
     const logOut = () => {
-        dispatch(signOut());
-        history.push(ROUTER_URLS_MAP[ROUTER_URLS.SignIn]);
+        dispatch(signOut() as any).then(() => {
+            history.push(ROUTER_URLS_MAP[ROUTER_URLS.SignIn]);
+        });
     };
 
     if (_.isEmpty(user)) return null;

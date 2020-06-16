@@ -18,18 +18,26 @@ import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { User } from "../Auth/AuthInterfaces";
 import { useDispatch, useSelector } from "react-redux";
+import { Route, useHistory, useParams } from "react-router-dom";
 import { selectUser } from "../Auth/AuthSelectors";
 import _ from "lodash";
 import { LocalStorageUtils } from "../../shared/utils/LocalStorageUtils";
 import {
     getCategories,
+    getCategoryBooks,
     createCategory,
     deleteCategory,
 } from "./CategoriesSlice";
 import { Category, CategoryResponse } from "./CategoriesInterfaces";
+import { ROUTER_URLS_MAP } from "../../Routes";
+import { ROUTER_URLS } from "../../RoutesEnums";
+import SignUp from "../Auth/containers/SignUp";
+import Books from "../Books";
 
 const Categories = () => {
+    const history = useHistory();
     const dispatch = useDispatch();
+    const { id } = useParams();
     const userFromState: User = useSelector(selectUser);
     const user: User = !_.isEmpty(LocalStorageUtils.getItem('user'))
         ? LocalStorageUtils.getItem('user')
@@ -56,34 +64,45 @@ const Categories = () => {
         dispatch(deleteCategory(categoryId) as any);
     }
 
+    const goToCategoriesDetailPage = (category: Category) => {
+        dispatch(getCategoryBooks(category.id) as any).then(() => {
+            history.push(`${ROUTER_URLS_MAP[ROUTER_URLS.Categories]}/${category.name}`);
+        });
+    }
+
     // TODO move to separate Category component
     const listItems = categories.map((category: Category, index: number) =>
         <div key={index}>
-            <ListItem button>
+            <ListItem button onClick={() => goToCategoriesDetailPage(category)}>
                 <ListItemText primary={category.name} />
                 {/*TODO refactor this solution */}
                 {/*!_.isEmpty(user) do this before showing anything for example on loading stage*/}
                 { !_.isEmpty(user) && user.isAdmin && <Button color="primary" startIcon={<EditIcon />} /> }
-                { !_.isEmpty(user) && user.isAdmin && <Button color="secondary" onClick={removeCategory(category.id)} startIcon={<DeleteIcon />} /> }
+                {/*{ !_.isEmpty(user) && user.isAdmin && <Button color="secondary" onClick={removeCategory(category.id)} startIcon={<DeleteIcon />} /> }*/}
             </ListItem>
             <Divider />
         </div>
     );
 
     useEffect(() => {
-        dispatch(getCategories() as any).then((res: { payload: CategoryResponse }) => {
-            setCategories(res.payload.data as any);
-        });
+        console.log('test');
+        // dispatch(getCategories() as any).then((res: { payload: CategoryResponse }) => {
+        //     setCategories(res.payload.data as any);
+        // });
     });
 
     return (
         <div className={styles.categories}>
             <BooksBreadcrumbs pageName="Categories" />
-            { !_.isEmpty(user) && user.isAdmin && <Button color="primary" startIcon={<AddIcon />} onClick={handleOpen}>Create category</Button> }
+            <ListItem button onClick={() => goToCategoriesDetailPage({ name: "Adventures", id: "catMMd1" })}>
+                <ListItemText primary={"Adventures"} />
+            </ListItem>
+            <Route path="/:id" children={Books} />
+            { !_.isEmpty(user) && user.isAdmin && <Button color="primary" startIcon={<AddIcon />} onClick={handleOpen}>Create</Button> }
             <Dialog open={open}
                     onClose={handleClose}
                     aria-labelledby="form-dialog-title">
-                <DialogTitle id="form-dialog-title">Create category</DialogTitle>
+                <DialogTitle id="form-dialog-title">Create</DialogTitle>
                 <DialogContent>
                     <TextField
                         autoFocus

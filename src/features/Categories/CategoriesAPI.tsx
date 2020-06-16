@@ -16,7 +16,15 @@ export const CategoriesAPI = {
                 console.log(error);
             });
     },
-    getBooksByCategoryId: () => {
+    getCategoryBooks: (categoryId: string) => {
+        return axios.get(API_URLS.CATEGORIES, { params: { ID: categoryId }})
+            .then((res: any) => {
+                console.log('CATEGORIES - DELETE', res);
+                return res;
+            })
+            .catch((error: any) => {
+                console.log(error);
+            });
     },
     createCategory: (category: Category) => {
         return axios.post(API_URLS.CATEGORIES, category, {  headers: { accept: 'application/json' }})
